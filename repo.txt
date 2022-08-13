@@ -1,0 +1,3 @@
+https://github.com/ultralytics/yolov5.git
+https://github.com/Hzzone/pytorch-openpose.git
+https://github.com/CorentinJ/Real-Time-Voice-Cloning.git
