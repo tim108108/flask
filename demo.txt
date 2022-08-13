@@ -1,3 +1,5 @@
 https://github.com/ultralytics/yolov5.git
+docker pull ultralytics/yolov5:latest
+
 https://github.com/Hzzone/pytorch-openpose.git
 https://github.com/CorentinJ/Real-Time-Voice-Cloning.git
