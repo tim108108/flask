@@ -1,8 +1,10 @@
 from flask import Flask, render_template, request
-#import util.py
+import os, sys
+sys.path.append(os.getcwd()+"/yolov5")
+import detect
+
 
 app = Flask(__name__)
-
 
 @app.route('/', methods=['GET'])
 def index():
