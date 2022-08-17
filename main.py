@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-import os, sys, re, base64
+import os, sys, re, base64, cv2
 import numpy as np
 from PIL import Image
 from io import BytesIO
@@ -12,6 +12,7 @@ def base64_to_pil(img_base64):
     """
     image_data = re.sub('^data:image/.+;base64,', '', img_base64)
     pil_image = Image.open(BytesIO(base64.b64decode(image_data)))
+    cv2.cvtColor()
     return pil_image
 
 
@@ -36,6 +37,7 @@ def predict():
         img = base64_to_pil(request.json)
         # Save the image to ./uploads
         img.save("./uploads/image.png")
+        preds = detect.run(source=img, project="./uploads")
         # Make prediction
         #preds = model_predict(img, model)
         # Process your result for human
