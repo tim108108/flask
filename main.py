@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, Response, send_file, jsonify
 import os, sys, re, base64, cv2
 import numpy as np
 from PIL import Image
@@ -12,7 +12,7 @@ def base64_to_pil(img_base64):
     """
     image_data = re.sub('^data:image/.+;base64,', '', img_base64)
     pil_image = Image.open(BytesIO(base64.b64decode(image_data)))
-    cv2.cvtColor()
+    #img = cv2.cvtColor(pil_image, cv2.COLOR_BGR2RGB)
     return pil_image
 
 
@@ -37,16 +37,12 @@ def predict():
         img = base64_to_pil(request.json)
         # Save the image to ./uploads
         img.save("./uploads/image.png")
-        preds = detect.run(source=img, project="./uploads")
         # Make prediction
-        #preds = model_predict(img, model)
-        # Process your result for human
-        #pred_proba = "{:.3f}".format(np.amax(preds))    # Max probability
-        #pred_class = decode_predictions(preds, top=1)   # ImageNet Decode
-        #result = str(pred_class[0][0][1])               # Convert to string
-        #result = result.replace('_', ' ').capitalize()
-        # Serialize the result, you can add additional fields
-        return 0 #jsonify(result=result, probability=pred_proba)
+        preds = detect.run(source="./uploads/image.png", project="./uploads", name="./pred", exist_ok=True)
+        pred_img = cv2.imread("./uploads/pred/image.png")
+        return send_file(
+            BytesIO(pred_img),
+            mimetype="image/png")
     return None
 
 if __name__ == "__main__":

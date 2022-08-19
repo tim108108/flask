@@ -131,9 +131,10 @@ function displayImage(image, id) {
 function displayResult(data) {
   // display the result
   // imageDisplay.classList.remove("loading");
-  hide(loader);
-  predResult.innerHTML = data.result;
-  show(predResult);
+  //hide(loader);
+  //predResult.innerHTML = data.result;
+  //show(predResult);
+  displayImage(data.result, "image-display");
 }
 
 function hide(el) {
